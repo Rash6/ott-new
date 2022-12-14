@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: OTT PLATFORM
+  description: |-
+    This is an open api for demo project which can be used by frontend to make a working ott application
+    There is admin to add movie data
+    The Api provides options to
+    - Get movie data
+    - Watch movie by the user
+    - watch particular get
+    - Post user data
+    - OTP login
+    - Secure Booking of Tickets
+  contact:
+    email: rashmi-narayan@pluralsight.com
+  version: 1.0.11
+servers:
+  - url: http://localhost:3300
+tags:
+  - name: user
+    description: Everything about users
+  - name: movie
+    description: Everything about movie
+  - name: theatre
+    description: Everything about theatre
+    # <-------------------------------- User Tag -------------------------------------->
+paths:
+# /// Login and sent OTP to email ---------------------------->
+  /login:
+    post:
+      tags:
+        - user
+      summary: Add a new user to the database
+      description: Add a new user to the database
+      requestBody:
+        description: Create a new user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/userData'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+
+        '401':
+          description: Invalid input
+# /// Verify sent otp ---------------------------->
+  /login/verify:
+    post:
+      tags:
+        - user
+      summary: Verify OTP
+      description: Verify OTP
+      requestBody:
+        description: Verify OTP
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/otpData'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Invalid input
+
+components:
+  schemas:
+    userData:
+      type: object
+      properties:
+        user_id:
+          type: string
+          example: "5436"
+        name:
+          type: string
+          example: alice
+        mail:
+          type: string
+          example: alice@gmail.com
+      xml:
+        name: userData
+   
